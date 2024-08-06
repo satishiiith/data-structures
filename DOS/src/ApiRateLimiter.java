@@ -7,12 +7,12 @@ public class ApiRateLimiter {
     int maxRequests;
 
     long windowIndex;
-    long availableRequests;
+    long servedRequests;
     public ApiRateLimiter(int windowInterval, int maxRequests) {
         this.windowInterval = windowInterval;
         this.maxRequests = maxRequests;
         windowIndex = -1;
-        availableRequests =0;
+        servedRequests =0;
     }
 
 
@@ -22,16 +22,16 @@ public class ApiRateLimiter {
         long currentWindowIndex =  (Instant.now().getEpochSecond()/windowInterval);
 
         if(currentWindowIndex==windowIndex){
-            if(availableRequests >=maxRequests)
+            if(servedRequests >=maxRequests)
                 return  false;
             else{
-                availableRequests++;
+                servedRequests++;
                 return  true;
 
             }
         }
         windowIndex = currentWindowIndex;
-        availableRequests = 1;
+        servedRequests = 1;
 
 
         return  true;
