@@ -10,8 +10,10 @@ import java.util.*;
 //int minimum() Returns the minimum price of the stock.
 
 public class StockPrice {
-
+    // order by price, to get the maximum and minimum
     TreeSet<TimeStampPrice> orderedByPricesSet;
+
+    //to get update the price for corrections
     Map<Integer, Integer> timeStampPriceMap;
     int currentTimestamp;
     // if need to update

@@ -27,7 +27,7 @@ public class Main {
             for (String rankList : rankLists) {
                 int numTeams = rankList.length();
                 for (int j = 0; j < numTeams; j++) {
-                    char team = rank    List.charAt(j);
+                    char team = rankList.charAt(j);
                     int[] rankOrder = teamRanksMap.getOrDefault(team, new int[numTeams]);
                     rankOrder[j] = rankOrder[j] + 1;
                     teamRanksMap.put(team, rankOrder);
@@ -44,6 +44,11 @@ public class Main {
             Collections.sort(teamRanksList, new Comparator<TeamRanks>() {
                 @Override
                 public int compare(TeamRanks o1, TeamRanks o2) {
+                    // TeamRanks{team=A, rankList=[2, 3, 0]}
+                    //TeamRanks{team=B, rankList=[3, 1, 1]}
+                    // TeamRanks{team=C, rankList=[0, 1, 4]}
+                    //sort descending order interms of rankFrequency
+
                     int[] rankList1 = o1.getRankList();
                     int[] rankList2 = o2.getRankList();
                     for (int i = 0; i < rankList1.length; i++) {
