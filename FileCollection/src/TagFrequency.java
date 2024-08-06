@@ -30,24 +30,19 @@ public class TagFrequency {
 
         for(String tag : tagsSizeMap.keySet()){
             TagSize tagSize = new TagSize( tagsSizeMap.get(tag),tag);
-            if(tagSizePriorityQueue.size()<K){
-                tagSizePriorityQueue.add(tagSize);
-            }
-            else if(tagSizePriorityQueue.peek().getSize()<tagSize.getSize()){
+            tagSizePriorityQueue.add(tagSize);
+            if(tagSizePriorityQueue.size()>K){
                 tagSizePriorityQueue.poll();
-                tagSizePriorityQueue.add(tagSize);
-
             }
-
-
         }
 
 
         List<TagSize> topTags = new ArrayList<>();
         while (!tagSizePriorityQueue.isEmpty()) {
-            topTags.add(tagSizePriorityQueue.poll());
+            System.out.println(tagSizePriorityQueue.peek());
+            topTags.add(0,tagSizePriorityQueue.poll());
+
         }
-        Collections.reverse(topTags); // Optional: Reverse to have the largest sizes first
         return topTags;
     }
 

@@ -17,7 +17,13 @@ public class TagSize {
         this.tag = tag;
     }
 
-
+    @Override
+    public String toString() {
+        return "TagSize{" +
+                "size=" + size +
+                ", tag='" + tag + '\'' +
+                '}';
+    }
 
     public TagSize(long size, String tag) {
         this.size = size;
