@@ -1,0 +1,70 @@
+import java.util.*;
+
+public class TopVotedCandidate {
+    List<Integer> persons;
+    List<Integer> votingTimeStamps;
+
+    Map<Integer, Integer> timeStampLeadingMap;
+
+    Map<Integer, Integer> cumulativeFrequencyMap;
+
+    int q;
+
+
+    //[[[0, 1, 1, 0, 0, 1, 0], [0, 5, 10, 15, 20, 25, 30]], [3], [12], [25], [15], [24], [8]]
+    //Output
+    // 5 -1 1
+    // 10 -1 2
+    //15 -2-2
+    //
+
+    public TopVotedCandidate(List<Integer> persons,List<Integer> votingTimeStamps ) {
+        this.persons = persons;
+        q = -1;
+        this.votingTimeStamps = votingTimeStamps;
+        cumulativeFrequencyMap= new HashMap<>();
+        timeStampLeadingMap = new HashMap<>();
+
+        for (int i = 0; i < persons.size(); i++) {
+            int person = persons.get(i);
+            int votes = cumulativeFrequencyMap.getOrDefault(person,0)+1;
+            cumulativeFrequencyMap.put(person,votes);
+
+            if(votes>=cumulativeFrequencyMap.getOrDefault(q,0)) {
+                q = person;
+                timeStampLeadingMap.put(votingTimeStamps.get(i), person);
+            }
+            else {
+                timeStampLeadingMap.put(votingTimeStamps.get(i), q);
+            }
+
+
+            }
+
+
+
+        }
+
+        //need map to persist cumulative frequency, need it for every person
+
+    public int q(int timeStamp) {
+        //while retrieving get nearestTimestamp which belogns voting timestamps < timeStamp
+
+        //need it in order ,we need sortedArray
+        int index = Collections.binarySearch(votingTimeStamps, timeStamp);
+        int nearestTimestamp;
+        if (index < 0){ // (-(insertion point) - 1).{ -n-1 ->n+1-2
+            index = -1*index-2;
+            nearestTimestamp = votingTimeStamps.get(index);
+
+        }
+        else
+            nearestTimestamp = votingTimeStamps.get(index);
+
+        return  timeStampLeadingMap.get(nearestTimestamp);
+
+
+    }
+
+
+}
